@@ -2,19 +2,10 @@
   "name": "svg-arc-corners",
   "version": "1.0.4",
   "description": "SVG arc path with rounded corners",
-  "main": "lib/index.js",
-  "module": "index.js",
-  "jsnext:main": "index.js",
-  "scripts": {
-    "test": "tap tests/*.js",
-    "start": "watchify -v -d -t [ babelify --presets [ es2015 ] ] -s cornerArc demo/index.js -o demo/build.js & serve -p 3002",
-    "build": "browserify -v -t [ babelify --presets [ es2015 ] ] -s cornerArc ./index.js -o lib/index.js",
-    "prepublish": "npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/w8r/svg-arc-corners.git"
-  },
+  "main": "index.ts",
+  "module": "index.ts",
+  "scripts": { },
+  "repository": { },
   "keywords": [
     "svg",
     "arc",
