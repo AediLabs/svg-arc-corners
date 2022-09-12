@@ -93,28 +93,24 @@ export const pie = ({
     return drawCircle(center, radius, thickness).join(" ");
   }
 
-  const innerR = radius - thickness;
   const circumference = Math.abs(end_deg - start_deg);
   const corner_radius_start = Math.min(thickness / 2, _corner_radius.start);
   const corner_radius_end = Math.min(thickness / 2, _corner_radius.end);
 
+  const maxRadius = Math.max(corner_radius_start, corner_radius_end);
+
   // inner and outer radiuses
-  const innerR2 = innerR + corner_radius_start;
-  const outerRadius = radius - corner_radius_start;
+  const outerRadius = radius - maxRadius;
 
   // butts corner points
   const oStart = pointOnArc(center, outerRadius, start_deg);
   const oEnd = pointOnArc(center, outerRadius, end_deg);
 
-  const iStart = pointOnArc(center, innerR2, start_deg);
-  const iEnd = pointOnArc(center, innerR2, end_deg);
+  const iEnd = pointOnArc(center, 0, end_deg);
 
-  const iSection = 360 * (corner_radius_start / (PI2 * innerR));
-  const oSection = 360 * (corner_radius_start / (PI2 * radius));
+  const oSection = 360 * (maxRadius / (PI2 * radius));
 
   // arcs endpoints
-  const iArcStart = pointOnArc(center, 0, start_deg + iSection);
-  const iArcEnd = pointOnArc(center, 0, end_deg - iSection);
 
   const oArcStart = pointOnArc(
     center,
@@ -128,7 +124,6 @@ export const pie = ({
   );
 
   const arcSweep1 = circumference > 180 + 2 * oSection ? 1 : 0;
-  const arcSweep2 = circumference > 180 + 2 * iSection ? 1 : 0;
 
   return [
     // begin path
@@ -166,33 +161,6 @@ export const pie = ({
     "L",
     iEnd[0],
     iEnd[1],
-    // inner end corner
-    "A",
-    corner_radius_start,
-    corner_radius_start,
-    0,
-    0,
-    1,
-    iArcEnd[0],
-    iArcEnd[1],
-    // inner arc
-    "A",
-    innerR,
-    innerR,
-    0,
-    arcSweep2,
-    0,
-    iArcStart[0],
-    iArcStart[1],
-    // inner start corner
-    "A",
-    corner_radius_start,
-    corner_radius_start,
-    0,
-    0,
-    1,
-    iStart[0],
-    iStart[1],
     "Z", // end path
   ].join(" ");
 };
