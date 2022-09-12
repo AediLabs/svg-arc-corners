@@ -1,5 +1,5 @@
 {
-  "name": "svg-arc-corners",
+  "name": "svg-pie-generator",
   "version": "1.0.4",
   "description": "SVG arc path with rounded corners",
   "main": "index.ts",
